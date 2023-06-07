@@ -12,7 +12,10 @@ defmodule GoogleAuthPlaygroundWeb.GoogleAuthController do
 
     # Render a :welcome view displaying some profile data to confirm that login with Google was successful.
     conn
-    |> put_view(GoogleAuthPlaygroundWeb.WelcomeHTML)
-    |> render(:welcome, profile: profile)
+    |> put_flash(:token, token)
+    |> put_flash(:profile, profile)
+    # |> put_view(GoogleAuthPlaygroundWeb.WelcomeHTML)
+    # |> render(:welcome, profile: profile)
+    |> redirect(to: ~p"/welcome")
   end
 end

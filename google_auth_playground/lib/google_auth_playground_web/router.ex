@@ -18,6 +18,9 @@ defmodule GoogleAuthPlaygroundWeb.Router do
     pipe_through(:browser)
 
     get("/", PageController, :index)
+    # get("/welcome", WelcomeController, :welcome)
+    live("/welcome", WelcomeLive)
+
     get("/auth/google/callback", GoogleAuthController, :index)
   end
 

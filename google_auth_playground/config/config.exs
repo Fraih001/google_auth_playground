@@ -31,8 +31,10 @@ config :google_auth_playground, GoogleAuthPlayground.Mailer, adapter: Swoosh.Ada
 
 # Configure Google Auth
 config :elixir_auth_google,
-  client_id: "386986306825-eef9u448207jsasnvignbte47q5pc0tc.apps.googleusercontent.com",
-  client_secret: "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"
+  google_scope:
+    "profile email https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.settings.readonly",
+  client_id: System.get_env("client_id"),
+  client_secret: System.get_env("client_secret")
 
 # Configure esbuild (the version is required)
 config :esbuild,

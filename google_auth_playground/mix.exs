@@ -52,7 +52,8 @@ defmodule GoogleAuthPlayground.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:elixir_auth_google, "~> 1.6.5"},
       {:httpoison, "~> 2.1.0"},
-      {:gcal, "~> 1.0.3"}
+      {:gcal, "~> 1.0.3"},
+      {:timex, "~> 3.0"}
     ]
   end
 

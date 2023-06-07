@@ -51,7 +51,8 @@ defmodule GoogleAuthPlayground.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:elixir_auth_google, "~> 1.6.5"},
-      {:httpoison, "~> 2.1.0"}
+      {:httpoison, "~> 2.1.0"},
+      {:gcal, "~> 1.0.3"}
     ]
   end
 
@@ -73,6 +74,3 @@ defmodule GoogleAuthPlayground.MixProject do
     ]
   end
 end
-
-# Client-ID = 386986306825-eef9u448207jsasnvignbte47q5pc0tc.apps.googleusercontent.com
-# Client-Secret = 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

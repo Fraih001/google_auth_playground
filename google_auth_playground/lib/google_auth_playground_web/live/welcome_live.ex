@@ -27,11 +27,12 @@ defmodule GoogleAuthPlaygroundWeb.WelcomeLive do
 
         current = Timex.now("America/New_York")
         start = Timex.shift(current, days: -2)
+
         # Get events of first calendar
         params = %{
           timeMin: start |> Timex.beginning_of_day() |> Timex.format!("{RFC3339}"),
           timeMax: current |> Timex.end_of_day() |> Timex.format!("{RFC3339}"),
-          maxResults: 10,
+          # maxResults: 10,
           singleEvents: true,
           orderBy: "startTime"
         }

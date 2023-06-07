@@ -23,10 +23,17 @@ defmodule GoogleAuthPlaygroundWeb.WelcomeLive do
           HTTPoison.get("https://www.googleapis.com/calendar/v3/calendars/primary", headers)
           |> parse_body_response()
 
+        # list of params for event call -> https://developers.google.com/calendar/api/v3/reference/events/list
+
+        current = Timex.now("America/New_York")
+        start = Timex.shift(current, days: -2)
         # Get events of first calendar
         params = %{
-          maxResults: 3,
-          singleEvents: true
+          timeMin: start |> Timex.beginning_of_day() |> Timex.format!("{RFC3339}"),
+          timeMax: current |> Timex.end_of_day() |> Timex.format!("{RFC3339}"),
+          maxResults: 10,
+          singleEvents: true,
+          orderBy: "startTime"
         }
 
         {:ok, event_list} =

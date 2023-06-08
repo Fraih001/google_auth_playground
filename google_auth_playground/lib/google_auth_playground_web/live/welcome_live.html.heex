@@ -48,7 +48,11 @@
                     <span>Attendees: </span>
                       <%= if event["attendees"] != nil do %>
                         <%= for attendees <- event["attendees"] do %>
-                          <span class="font-bold">  <%= attendees["displayName"] || attendees["email"] %> </span>
+                          <span class="font-bold">
+                            <li class="font-bold">
+                              <%= attendees["displayName"] || attendees["email"] %>
+                            </li>
+                          </span>
                         <% end %>
                       <% else %>
                           <span class="font-bold"> No attendees assigned to this meeting </span>

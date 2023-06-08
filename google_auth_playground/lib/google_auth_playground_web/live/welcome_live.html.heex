@@ -8,8 +8,10 @@
        <strong style="color:teal;"><%= @flash["profile"].email %></strong>
        </p>
      </section>
+
      <br/>
-     <div class="w-full p-4">
+
+<div class="w-full p-4">
   <main role="main" class="flex w-full flex-col content-center justify-center md:flex-row">
     <h2 class="text-5xl font-medium leading-tight text-slate-900">List of events</h2>
 
@@ -43,11 +45,17 @@
                     </p>
 
                     <p class="w-full text-sm text-gray-500">
-                        <span>Attendees: </span>
-                        <span class="font-bold"><%=  %></span>
+                    <span>Attendees: </span>
+                    <%= if event["attendees"] != nil do %>
+                      <%= for attendees <- event["attendees"] do %>
+                          <span class="font-bold">  <%= attendees["displayName"] || attendees["email"] %> </span>
+                      <% end %>
+                      <% else %>
+                        <span class="font-bold"> No attendees assigned to this meeting </span>
+                      <% end %>
                     </p>
                     </div>
-                </div>
+                  </div>
                 </div>
             </div>
         <% end %>

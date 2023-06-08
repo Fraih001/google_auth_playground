@@ -24,15 +24,15 @@ defmodule GoogleAuthPlaygroundWeb.WelcomeLive do
           |> parse_body_response()
 
         # list of params for event call -> https://developers.google.com/calendar/api/v3/reference/events/list
-
+        # TO DO - account for different time zones
         current = Timex.now("America/New_York")
         start = Timex.shift(current, days: -2)
 
-        # Get events of first calendar
+        # Get events of primary (default) calendar
         params = %{
           timeMin: start |> Timex.beginning_of_day() |> Timex.format!("{RFC3339}"),
           timeMax: current |> Timex.end_of_day() |> Timex.format!("{RFC3339}"),
-          # maxResults: 10,
+          # maxResults: 1,
           singleEvents: true,
           orderBy: "startTime"
         }
@@ -45,7 +45,6 @@ defmodule GoogleAuthPlaygroundWeb.WelcomeLive do
           )
           |> parse_body_response()
 
-        dbg(event_list)
         {:ok, assign(socket, event_list: event_list.items)}
 
       _ ->

@@ -56,7 +56,7 @@ defmodule GoogleAuthPlaygroundWeb.GoogleAuthController do
       {:ok, body, conn} ->
         # Process the notification body
         IO.puts("++++++++++++++++++++++++++")
-        IO.inspect(body)
+        IO.inspect(body) # body will always be an empty string, as the google notification does not contain a resp_body 
         IO.inspect(conn)
         IO.inspect("Received Successfully!")
         IO.puts("++++++++++++++++++++++++++")

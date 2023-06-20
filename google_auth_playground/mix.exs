@@ -48,12 +48,15 @@ defmodule GoogleAuthPlayground.MixProject do
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
+      {:oban, "~> 2.13"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:elixir_auth_google, "~> 1.6.5"},
       {:httpoison, "~> 2.1.0"},
       {:gcal, "~> 1.0.3"},
-      {:timex, "~> 3.0"}
+      {:timex, "~> 3.0"},
+      { :uuid, "~> 1.1" },
+      {:google_api_calendar, "~> 0.21.8"}
     ]
   end
 

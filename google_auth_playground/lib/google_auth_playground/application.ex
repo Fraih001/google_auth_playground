@@ -12,6 +12,7 @@ defmodule GoogleAuthPlayground.Application do
       GoogleAuthPlaygroundWeb.Telemetry,
       # Start the Ecto repository
       GoogleAuthPlayground.Repo,
+      {Oban, Application.fetch_env!(:google_auth_playground, Oban)},
       # Start the PubSub system
       {Phoenix.PubSub, name: GoogleAuthPlayground.PubSub},
       # Start Finch

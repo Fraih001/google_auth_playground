@@ -1,6 +1,8 @@
 import Config
 
 # Configure your database
+
+config :google_auth_playground, Oban, testing: :inline
 #
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.

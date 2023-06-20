@@ -25,13 +25,13 @@ defmodule GoogleAuthPlaygroundWeb.WelcomeLive do
 
         # list of params for event call -> https://developers.google.com/calendar/api/v3/reference/events/list
         # TO DO - account for different time zones
-        current = Timex.now("America/New_York")
-        start = Timex.shift(current, days: -2)
+        start_cal = Timex.now("America/New_York")
+        end_cal = Timex.shift(start_cal, days: 2)
 
         # Get events of primary (default) calendar
         params = %{
-          timeMin: start |> Timex.beginning_of_day() |> Timex.format!("{RFC3339}"),
-          timeMax: current |> Timex.end_of_day() |> Timex.format!("{RFC3339}"),
+          timeMin: start_cal |> Timex.beginning_of_day() |> Timex.format!("{RFC3339}"),
+          timeMax: end_cal |> Timex.end_of_day() |> Timex.format!("{RFC3339}"),
           # maxResults: 1,
           singleEvents: true,
           orderBy: "startTime"
@@ -44,6 +44,7 @@ defmodule GoogleAuthPlaygroundWeb.WelcomeLive do
             params: params
           )
           |> parse_body_response()
+          
 
         {:ok, assign(socket, event_list: event_list.items)}
 
@@ -63,7 +64,7 @@ defmodule GoogleAuthPlaygroundWeb.WelcomeLive do
 
   defp parse_body_response({:ok, response}) do
     body = Map.get(response, :body)
-    # make keys of map atoms for easier access in templates
+
     if body == nil do
       {:error, :no_body}
     else

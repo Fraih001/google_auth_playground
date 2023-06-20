@@ -12,16 +12,20 @@ defmodule GoogleAuthPlaygroundWeb.Router do
 
   pipeline :api do
     plug(:accepts, ["json"])
+    
+    scope "/", GoogleAuthPlaygroundWeb do
+      post "/subscription", GoogleAuthController, :create_subscription
+      post "/notifications", GoogleAuthController, :handle_notifications
+    end
   end
 
   scope "/", GoogleAuthPlaygroundWeb do
     pipe_through(:browser)
 
     get("/", PageController, :index)
-    # get("/welcome", WelcomeController, :welcome)
     live("/welcome", WelcomeLive)
-
     get("/auth/google/callback", GoogleAuthController, :index)
+ 
   end
 
   # Other scopes may use custom stacks.

@@ -7,8 +7,10 @@
 # General application configuration
 import Config
 
+config :elixir, :dbg_callback, {Macro, :dbg, []}
+
 config :google_auth_playground,
-  ecto_repos: [GoogleAuthPlayground.Repo]
+  ecto_repos: [GoogleAuthPlayground.Repo]  
 
 # Configures the endpoint
 config :google_auth_playground, GoogleAuthPlaygroundWeb.Endpoint,
@@ -69,3 +71,10 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
+
+# Oban config
+
+config :google_auth_playground, Oban,
+  repo: GoogleAuthPlayground.Repo,
+  plugins: [Oban.Plugins.Pruner],
+  queues: [default: 10]       

@@ -24,7 +24,9 @@ defmodule GoogleAuthPlaygroundWeb.Router do
 
     get("/", PageController, :index)
     live("/welcome", WelcomeLive)
-    get("/auth/google/callback", GoogleAuthController, :index)
+    get "/auth/google", GoogleAuthController, :request
+    get "/auth/google/callback", GoogleAuthController, :callback
+    # get("/auth/google/callback", GoogleAuthController, :index)
  
   end
 

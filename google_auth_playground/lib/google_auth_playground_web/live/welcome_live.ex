@@ -2,28 +2,28 @@ defmodule GoogleAuthPlaygroundWeb.WelcomeLive do
   use GoogleAuthPlaygroundWeb, :live_view
   import GoogleAuthPlaygroundWeb.WelcomeHTML
 
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
     # We fetch the access token to make the requests.
     # If none is found, we redirect the person to the home page.
+    # IO.inspect(session["current_user"].token)
+    # case Map.get(socket.assigns.flash, "profile") do
+    #   nil -> socket
+    #   profile -> assign(socket, :profile, profile)
+    # end
 
-    case Map.get(socket.assigns.flash, "profile") do
-      nil -> socket
-      profile -> assign(socket, :profile, profile)
-    end
-
-    case get_token(socket) do
+    case get_token(session) do
       {:ok, token} ->
         headers = [
-          Authorization: "Bearer #{token.access_token}",
+          Authorization: "Bearer #{token}",
           "Content-Type": "application/json"
         ]
-
+        
         # Get primary calendar
         {:ok, primary_calendar} =
           HTTPoison.get("https://www.googleapis.com/calendar/v3/calendars/primary", headers)
           |> parse_body_response()
-
-        # list of params for event call -> https://developers.google.com/calendar/api/v3/reference/events/list
+       
+          # list of params for event call -> https://developers.google.com/calendar/api/v3/reference/events/list
         # TO DO - account for different time zones
         start_cal = Timex.now("America/New_York")
         end_cal = Timex.shift(start_cal, days: 2)
@@ -46,15 +46,15 @@ defmodule GoogleAuthPlaygroundWeb.WelcomeLive do
           |> parse_body_response()
           
 
-        {:ok, assign(socket, event_list: event_list.items)}
+        {:ok, assign(socket, event_list: event_list.items, session: session)}
 
       _ ->
         {:ok, push_redirect(socket, to: ~p"/")}
     end
   end
 
-  defp get_token(socket) do
-    case Map.get(socket.assigns.flash, "token") do
+  defp get_token(session) do
+    case session["current_user"].token do
       nil -> {:error, nil}
       token -> {:ok, token}
     end

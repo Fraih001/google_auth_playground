@@ -32,11 +32,21 @@ config :google_auth_playground, GoogleAuthPlaygroundWeb.Endpoint,
 config :google_auth_playground, GoogleAuthPlayground.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure Google Auth
-config :elixir_auth_google,
-  google_scope:
-    "profile email https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.settings.readonly",
-  client_id: System.get_env("client_id"),
-  client_secret: System.get_env("client_secret")
+# config :elixir_auth_google,
+#   google_scope:
+#     "profile email https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.settings.readonly",
+#   client_id: System.get_env("client_id"),
+#   client_secret: System.get_env("client_secret")
+
+config :ueberauth, Ueberauth,
+    providers: [
+      google: {Ueberauth.Strategy.Google, [default_scope: "profile email https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.settings.readonly",
+      client_id: System.get_env("client_id"),
+      client_secret: System.get_env("client_secret"),
+      redirect_uri: "http://localhost:4000/auth/google/callback"
+      ]}
+    ]
+  
 
 # Configure esbuild (the version is required)
 config :esbuild,

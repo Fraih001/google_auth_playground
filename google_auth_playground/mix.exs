@@ -55,8 +55,10 @@ defmodule GoogleAuthPlayground.MixProject do
       {:httpoison, "~> 2.1.0"},
       {:gcal, "~> 1.0.3"},
       {:timex, "~> 3.0"},
-      { :uuid, "~> 1.1" },
-      {:google_api_calendar, "~> 0.21.8"}
+      {:uuid, "~> 1.1"},
+      {:google_api_calendar, "~> 0.21.8"},
+      {:ueberauth, "~> 0.7"},
+      {:ueberauth_google, "~> 0.10"}
     ]
   end
 

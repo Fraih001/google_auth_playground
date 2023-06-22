@@ -29,7 +29,7 @@ defmodule GoogleAuthPlaygroundWeb.GoogleAuthController do
   end
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
-    IO.inspect(conn)
+    IO.inspect(auth)
     case UserFromAuth.find_or_create(auth) do
       {:ok, user} ->
         conn
